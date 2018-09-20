@@ -1,0 +1,154 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "list": {
+              "type": "object",
+              "properties": {
+                "kdDiag": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "nmDiag": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "nonSpesialis": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "kdDiag",
+                "nmDiag",
+                "nonSpesialis"
+              ]
+            },
+            "list1": {
+              "type": "object",
+              "properties": {
+                "anak1List1": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "anak2List1": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                }
+              },
+              "required": [
+                "anak1List1",
+                "anak2List1"
+              ]
+            },
+            "list2": {
+              "type": "object",
+              "properties": {
+                "anak1List2": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                }
+              },
+              "required": [
+                "anak1List2"
+              ]
+            }
+          },
+          "required": [
+            "count",
+            "list",
+            "list1",
+            "list2"
+          ]
+        },
+        "metaData": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "minLength": 1
+            },
+            "code": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "message",
+            "code"
+          ]
+        },
+        "kesehatan": {
+          "type": "object",
+          "properties": {
+            "penyakit": {
+              "type": "object",
+              "properties": {
+                "namaP": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "obat": {
+                  "type": "object",
+                  "properties": {
+                    "namaO": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "kandungan": {
+                      "type": "object",
+                      "properties": {
+                        "tumbuhan": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "senyawa": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "tumbuhan",
+                        "senyawa"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "namaO",
+                    "kandungan"
+                  ]
+                }
+              },
+              "required": [
+                "namaP",
+                "obat"
+              ]
+            }
+          },
+          "required": [
+            "penyakit"
+          ]
+        }
+      },
+      "required": [
+        "response",
+        "metaData",
+        "kesehatan"
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ]
+}

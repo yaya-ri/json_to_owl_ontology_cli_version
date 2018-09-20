@@ -1,0 +1,28 @@
+{
+    "data": 
+    {
+        "sampleTime": "2017-06-02T11:47:37.040Z",
+        "target": 
+        {
+            "gateway": "TEST1",
+            "probe": "zeus",
+            "managedEntity": "zeus",
+            "type": "",
+            "sampler": "HARDWARE",
+            "dataview": "HARDWARE",
+            "filter": 
+            {
+                "osType": "Linux",
+                "pluginName": "HARDWARE"
+            }
+        },
+
+        "name": "cpuUtilisation",
+        "row": 
+        {
+            "Value": "50.39 % (average load)"
+        }
+    },
+
+    "operation": "update"
+}

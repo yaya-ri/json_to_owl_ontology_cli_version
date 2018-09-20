@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "kesehatan": {
+      "type": "object",
+      "properties": {
+        "penyakit": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "namaP",
+              "id"
+            ],
+            "properties": {
+              "namaP": {
+                "type": "string",
+                "minLength": 1
+              },
+              "id": {
+                "type": "number"
+              },
+              "obat": {
+                "type": "object",
+                "properties": {
+                  "namaO": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "kandungan": {
+                    "type": "object",
+                    "properties": {
+                      "tumbuhan": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "senyawa": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "tumbuhan",
+                      "senyawa"
+                    ]
+                  }
+                },
+                "required": [
+                  "namaO",
+                  "kandungan"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "penyakit"
+      ]
+    }
+  },
+  "required": [
+    "kesehatan"
+  ]
+}

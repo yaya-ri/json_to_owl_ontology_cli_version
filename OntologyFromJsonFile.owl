@@ -1,0 +1,43 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:base="http://www.example.com/merge.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+  <owl:Class rdf:about="http://www.example.com/merge.owl#kandungan"/>
+  <owl:Class rdf:about="http://www.example.com/merge.owl#obat"/>
+  <owl:Class rdf:about="http://www.example.com/merge.owl#kesehatan"/>
+  <owl:Class rdf:about="http://www.example.com/merge.owl#penyakit"/>
+  <owl:ObjectProperty rdf:about="http://www.example.com/merge.owl#punyapenyakit">
+    <rdfs:range rdf:resource="http://www.example.com/merge.owl#penyakit"/>
+    <rdfs:domain rdf:resource="http://www.example.com/merge.owl#kesehatan"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.example.com/merge.owl#punyakandungan">
+    <rdfs:range rdf:resource="http://www.example.com/merge.owl#kandungan"/>
+    <rdfs:domain rdf:resource="http://www.example.com/merge.owl#obat"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.example.com/merge.owl#punyaobat">
+    <rdfs:range rdf:resource="http://www.example.com/merge.owl#obat"/>
+    <rdfs:domain rdf:resource="http://www.example.com/merge.owl#penyakit"/>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="http://www.example.com/merge.owl#namaO">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://www.example.com/merge.owl#obat"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.example.com/merge.owl#tumbuhan">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://www.example.com/merge.owl#kandungan"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.example.com/merge.owl#senyawa">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://www.example.com/merge.owl#kandungan"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.example.com/merge.owl#id">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://www.example.com/merge.owl#penyakit"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.example.com/merge.owl#namaP">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://www.example.com/merge.owl#penyakit"/>
+  </owl:DatatypeProperty>
+</rdf:RDF>

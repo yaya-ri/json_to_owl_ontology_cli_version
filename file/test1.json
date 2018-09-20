@@ -1,0 +1,39 @@
+{
+  "data":{
+    "response": {
+        "count": 33,
+        "list":{
+            "kdDiag": "A001",
+            "nmDiag": "Cholera due to vibrio cholerae 01 biovar eltor",
+            "nonSpesialis": false
+        },"list1":{
+            "anak1List1":{
+                
+            },"anak2List1":{
+                
+            }
+            
+        },"list2":{
+            "anak1List2":{
+                
+            }
+        }
+    },
+    "metaData": {
+        "message": "OK",
+        "code": 200
+    },
+    "kesehatan":{
+        "penyakit":{
+          "namaP":"malaria",
+          "obat":{
+            "namaO":"obatMalaria",
+            "kandungan" :{
+              "tumbuhan":"jahe",
+              "senyawa":"a"
+            }
+          }
+        }
+    } 
+  }
+}
