@@ -28,7 +28,7 @@ import org.apache.jena.vocabulary.XSD;
 
 public class BuildOntology {
     
-    public void BuildOWLOntology(ArrayList<String> listClass, ArrayList<String>[] listObjectProperty, ArrayList<String>[] listDataTypeProperty) throws FileNotFoundException {
+    public void BuildOWLOntology(ArrayList<String> listClass, ArrayList<String>[] listObjectProperty, ArrayList<String>[] listDataTypeProperty, ArrayList<String>[] listIndividu, ArrayList<String>[] listStatement) throws FileNotFoundException {
 
 //        org.apache.log4j.Logger.getRootLogger().setLevel(org.apache.log4j.Level.OFF);
 
@@ -40,8 +40,6 @@ public class BuildOntology {
         mo.setNsPrefix("base", mergeURI);
 
 //        Create Class
-        System.out.println(listClass.size());
-        System.out.println(listClass.size());
         for (int i = 0; i < listClass.size(); i++) {
             mo.createClass(mergeURI + listClass.get(i));
         }
@@ -57,20 +55,30 @@ public class BuildOntology {
         for (int i = 0; i < listDataTypeProperty.length; i++) {
             DatatypeProperty dt = mo.createDatatypeProperty(mergeURI + listDataTypeProperty[i].get(1));
             dt.addDomain(mo.getResource(mergeURI + listDataTypeProperty[i].get(0)));
-            dt.addRange(XSD.xstring);
+            if(listDataTypeProperty[i].get(2).equalsIgnoreCase("xsd:string")){
+                dt.addRange(XSD.xstring);
+            }else if(listDataTypeProperty[i].get(2).equalsIgnoreCase("xsd:integer")){
+                dt.addRange(XSD.integer);
+            }else if(listDataTypeProperty[i].get(2).equalsIgnoreCase("xsd:boolean")){
+                dt.addRange(XSD.xboolean);
+            }
+            
         }
 
-//        for (int i = 0; i < listDataTypeProperty.length; i++) {
-//            OntClass newclass = mo.getOntClass(mergeURI + listDataTypeProperty[i].get(0));
-//            mo.createIndividual(mergeURI + listDataTypeProperty[i].get(2), newclass);
-//        }
-//
-//        for (int i = 0; i < listDataTypeProperty.length; i++) {
-//            Resource ex = mo.getResource(mergeURI + listDataTypeProperty[i].get(0));
-//            Property ex1 = mo.getProperty(mergeURI + listDataTypeProperty[i].get(1));
-//            Statement news = mo.createStatement(ex, ex1, "punya");
-//            mo.add(news);
-//        }
+        //Create individu
+        for (int i = 0; i < listIndividu.length; i++) {
+            OntClass newclass = mo.getOntClass(mergeURI + listIndividu[i].get(1));
+            mo.createIndividual(mergeURI + listIndividu[i].get(0), newclass);
+        }
+
+        //Create Statement
+        for (int i = 0; i < listStatement.length; i++) {
+            //System.out.println(listStatement[i].get(1));
+            Resource ex = mo.getResource(mergeURI + listStatement[i].get(0));
+            Property ex1 = mo.getProperty(mergeURI + listStatement[i].get(1));
+            Statement news = mo.createStatement(ex, ex1, listStatement[i].get(2));
+            mo.add(news);
+        }
         String basePath = new File("").getAbsolutePath();
         String finalPath = basePath.replace("\\", "\\\\");
         String fileName = "OntologyFromJsonFile.owl";

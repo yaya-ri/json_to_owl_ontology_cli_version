@@ -33,11 +33,47 @@
     <rdfs:domain rdf:resource="http://www.example.com/merge.owl#kandungan"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.example.com/merge.owl#id">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
     <rdfs:domain rdf:resource="http://www.example.com/merge.owl#penyakit"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.example.com/merge.owl#namaP">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://www.example.com/merge.owl#penyakit"/>
   </owl:DatatypeProperty>
+  <base:penyakit rdf:about="http://www.example.com/merge.owl#101">
+    <base:punyanamaP>Campak</base:punyanamaP>
+    <base:punyanamaP>Malaria</base:punyanamaP>
+    <base:punyaid>105</base:punyaid>
+    <base:punyanamaP>demam Berdarah</base:punyanamaP>
+    <base:punyaid>106</base:punyaid>
+    <base:punyanamaP>Diare</base:punyanamaP>
+    <base:punyaid>104</base:punyaid>
+    <base:punyanamaP>TBC</base:punyanamaP>
+    <base:punyaid>103</base:punyaid>
+    <base:punyaid>101</base:punyaid>
+    <base:punyanamaP>Tifus</base:punyanamaP>
+    <base:punyaid>102</base:punyaid>
+  </base:penyakit>
+  <base:kandungan rdf:about="http://www.example.com/merge.owl#Hcl">
+    <base:punyatumbuhan>Kunyit</base:punyatumbuhan>
+    <base:punyatumbuhan>Daun Pepaya</base:punyatumbuhan>
+    <base:punyasenyawa>Hcl</base:punyasenyawa>
+    <base:punyasenyawa>NaP4</base:punyasenyawa>
+    <base:punyasenyawa>Np2H</base:punyasenyawa>
+    <base:punyatumbuhan>Temulawak</base:punyatumbuhan>
+    <base:punyasenyawa>NaC20</base:punyasenyawa>
+    <base:punyasenyawa>H3P2</base:punyasenyawa>
+    <base:punyatumbuhan>jahe</base:punyatumbuhan>
+    <base:punyasenyawa>k3P2</base:punyasenyawa>
+    <base:punyatumbuhan>Daun Ubi Jalar</base:punyatumbuhan>
+    <base:punyatumbuhan>Daun Teh</base:punyatumbuhan>
+  </base:kandungan>
+  <base:obat rdf:about="http://www.example.com/merge.owl#obatMalaria1">
+    <base:punyanamaO>obatCampak</base:punyanamaO>
+    <base:punyanamaO>obatTifus</base:punyanamaO>
+    <base:punyanamaO>obatTBC</base:punyanamaO>
+    <base:punyanamaO>obatDiare</base:punyanamaO>
+    <base:punyanamaO>obatDemamBerdarah</base:punyanamaO>
+    <base:punyanamaO>obatMalaria1</base:punyanamaO>
+  </base:obat>
 </rdf:RDF>

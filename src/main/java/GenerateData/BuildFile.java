@@ -391,32 +391,111 @@ public class BuildFile {
         System.out.println("");
         
         //List Individual--------------------------------------------------------------------------------------------------------
+                
+        ArrayList<String> tmpIndividual = new ArrayList<>();
         
-//        ArrayList<String>[] buildListIndividual = new ArrayList[sizeListPathProperty];
-//        for (int i = 0; i < buildListIndividual.length; i++) {
-//            buildListIndividual[i] = new ArrayList<>();
-//        }
-//        
-//        ArrayList<String> tmpIndividual = new ArrayList<>();
-//        
-//        for (int i = 0; i < buildListClassToProperty.length; i++) {
-//            String clasIndividual = buildListClassToProperty[i].get(0);
-//            for (int j = i; j < buildListClassToProperty.length; j++) {
-//                if(!buildListClassToProperty[j].get(0).equalsIgnoreCase(buildListClassToProperty[j + 1].get(0))){
-//                    System.out.println(clasIndividual);
-//                    break;
-//                }
-//            }
-//        }
+        int counter;
+        for (int i = 0; i < buildListClassToProperty.length; i++) {
+            String clasIndividual = buildListClassToProperty[i].get(0);
+            for (int j = i; j < buildListClassToProperty.length; j++) {
+                if ((j<buildListClassToProperty.length-1) && !buildListClassToProperty[j].get(0).equalsIgnoreCase(buildListClassToProperty[j+1].get(0))) {
+                    //System.out.println("statemen: "+buildListClassToProperty[i].get(0) +" : "+ buildListClassToProperty[i].get(1));
+                    tmpIndividual.add(buildListClassToProperty[i].get(1));
+                    tmpIndividual.add(buildListClassToProperty[i].get(0));
+                    i=j;
+                    break;
+                }else if(j==buildListClassToProperty.length-1){
+                    //System.out.println("statemen: " + buildListClassToProperty[i].get(1) +" : "+ buildListClassToProperty[i].get(1));
+                    tmpIndividual.add(buildListClassToProperty[i].get(1));
+                    tmpIndividual.add(buildListClassToProperty[i].get(0));
+                    i = j;
+                    break;
+                }
+               
+            }
+            
+        }
+        
+//        System.out.println(String.valueOf(valueProperty[0].get(0)));
+        
+        ArrayList<String>[] buildListIndividual = new ArrayList[tmpIndividual.size()/2];
+        for (int i = 0; i < buildListIndividual.length; i++) {
+            buildListIndividual[i] = new ArrayList<>();
+        }
+        
+        int pointerListIndividu=0;
+        for (int i = 0; i < valueProperty.length; i++) {
+            for (int j = 0; j < tmpIndividual.size()-1; j=j+2) {
+                if(tmpIndividual.get(j).equalsIgnoreCase(valueProperty[i].get(valueProperty[i].size()-1))){
+                    //System.out.println(valueProperty[i].get(valueProperty[i].size()-1));
+//                    String namaList =valueProperty[i].get(0);
+                    //System.out.println(tmpIndividual.get(j+1));
+                    //System.out.println(i);
+                   String listName = String.valueOf(valueProperty[i].get(0));
+                   buildListIndividual[pointerListIndividu].add(listName);
+                   buildListIndividual[pointerListIndividu].add(tmpIndividual.get(j + 1));
+                   pointerListIndividu++;
+                }
+            }
+        }
+        
+        System.out.println("- List Individu name");
+        for (int i = 0; i < buildListIndividual.length; i++) {
+            System.out.println("    "+buildListIndividual[i].toString());
+        }
         
         //-----------------------------------------------------------------------------------------------------------------------
         
         System.out.println("");
         
+        
+        //list Statement
+        int sizeListStatement = valueProperty.length*(valueProperty[0].size()-1);
+        //System.out.println(sizeListStatement);
+        ArrayList<String>[] buildListStatement= new ArrayList[sizeListStatement];
+        for (int i = 0; i < buildListStatement.length; i++) {
+            buildListStatement[i] = new ArrayList<>();
+        }
+        
+        
+        
+        int pointerListStatement=0;
+        for (int i = 0; i < buildListIndividual.length; i++) {
+            String listName = buildListIndividual[i].get(0);
+            String classOrigin = buildListIndividual[i].get(1);
+            for (int j = 0; j <buildListClassToProperty.length ; j++) {
+                String classOrigin1 = buildListClassToProperty[j].get(0);
+                String propertyClass = buildListClassToProperty[j].get(1);
+                if(classOrigin.equalsIgnoreCase(classOrigin1)){
+                    for (int k = 0; k < valueProperty.length; k++) {
+                        String propertyClassOnValue = valueProperty[k].get(valueProperty[k].size()-1);
+                        if(propertyClass.equalsIgnoreCase(propertyClassOnValue)){
+                            for (int l = 0; l < valueProperty[k].size()-1; l++) {
+//                                System.out.println(pointerListStatement);
+//                                System.out.println(listName);
+                                buildListStatement[pointerListStatement].add(listName);
+                                buildListStatement[pointerListStatement].add("punya"+propertyClass);
+                                buildListStatement[pointerListStatement].add(String.valueOf(valueProperty[k].get(l)));
+                                pointerListStatement++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+        System.out.println("- List Statemen: ");
+        for (int i = 0; i < buildListStatement.length; i++) {
+            System.out.println("    "+buildListStatement[i].toString());
+        }
+        
+        //-----------------------------------------------------------------------------------------------------------------------
+
         //Input list fo OWL ontology
         
         BuildOntology CreateOntoogy = new BuildOntology();
-        CreateOntoogy.BuildOWLOntology(buildListClass, buildListClassToClass, buildListClassToProperty);
+        CreateOntoogy.BuildOWLOntology(buildListClass, buildListClassToClass, buildListClassToProperty, buildListIndividual, buildListStatement);
         
         //-----------------------------------------------------------------------------------------------------------------------
     }
