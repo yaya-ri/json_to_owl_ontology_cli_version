@@ -42,8 +42,13 @@ public class BuildFile {
         for (int i = 0; i < tmpOP.size(); i++) {
             listWithProperties[i] = new ArrayList<>();
         }
-
-        //System.out.println(tmpAllValue);
+        
+        System.out.println("");
+        
+        System.out.println(tmpAllValue.toString());
+        
+        System.out.println("");
+        
         for (int i = 0; i < tmpAllValue.size(); i++) {
             for (int j = 0; j < tmpOP.size(); j++) {
                 if (tmpOP.get(j).equalsIgnoreCase(tmpAllValue.get(i))) {
@@ -109,35 +114,40 @@ public class BuildFile {
         System.out.println("");
 
         ArrayList<String> tmpClassNProperty = new ArrayList();
+        //tmp class property versi terbalik
+//        if (item != null) {
+//            for (int i = 1; i < elementWithArrayFix.size(); i++) {
+//                if (elementWithArrayFix.get(i).equalsIgnoreCase("properties") && !elementWithArrayFix.get(i - 1).equalsIgnoreCase("end")) {
+//                    String superClass = elementWithArrayFix.get(i - 1);
+//                    for (int j = i - 2; j >= 0; j--) {
+//                        if (elementWithArrayFix.get(j).equalsIgnoreCase("start")) {
+//                            break;
+//                        }
+//                        if (!elementWithArrayFix.get(j).equalsIgnoreCase("end")) {
+//                            tmpClassNProperty.add(superClass);
+//                            tmpClassNProperty.add(elementWithArrayFix.get(j));
+//                        }
+//
+//                    }
+//                }
+//            }
+//        }
+        
         if (item != null) {
             for (int i = 1; i < elementWithArrayFix.size(); i++) {
                 if (elementWithArrayFix.get(i).equalsIgnoreCase("properties") && !elementWithArrayFix.get(i - 1).equalsIgnoreCase("end")) {
                     String superClass = elementWithArrayFix.get(i - 1);
                     for (int j = i - 2; j >= 0; j--) {
                         if (elementWithArrayFix.get(j).equalsIgnoreCase("start")) {
+                            for (int k = j+1; k < elementWithArrayFix.size(); k++) {
+                                if (elementWithArrayFix.get(k).equalsIgnoreCase("end")) {
+                                    break;
+                                }
+                                tmpClassNProperty.add(superClass);
+                                tmpClassNProperty.add(elementWithArrayFix.get(k));
+                            }
                             break;
                         }
-                        if (!elementWithArrayFix.get(j).equalsIgnoreCase("end")) {
-                            tmpClassNProperty.add(superClass);
-                            tmpClassNProperty.add(elementWithArrayFix.get(j));
-                        }
-
-                    }
-                }
-            }
-        } else {
-            for (int i = 1; i < elementWithArray.size(); i++) {
-                if (elementWithArray.get(i).equalsIgnoreCase("properties") && !elementWithArray.get(i - 1).equalsIgnoreCase("end")) {
-                    String superClass = elementWithArray.get(i - 1);
-                    for (int j = i - 2; j >= 0; j--) {
-                        if (elementWithArray.get(j).equalsIgnoreCase("start")) {
-                            break;
-                        }
-                        if (!elementWithArray.get(j).equalsIgnoreCase("end")) {
-                            tmpClassNProperty.add(superClass);
-                            tmpClassNProperty.add(elementWithArray.get(j));
-                        }
-
                     }
                 }
             }
@@ -158,8 +168,8 @@ public class BuildFile {
         System.out.println("Tmp Class and property");
         System.out.println(tmpClassNProperty.toString());
 
-        ArrayList<String> classToClass = new ArrayList();
-        ArrayList<String> classToProperty = new ArrayList();
+        ArrayList<String> tmpObjectProperty = new ArrayList();
+        ArrayList<String> tmpDatatypeProperty = new ArrayList();
         
         int point = tmpClassNProperty.size() - 1;
         for (int i = tmpClassNProperty.size() - 1; i >= 0; i = i - 2) {
@@ -171,12 +181,12 @@ public class BuildFile {
                 if (theSub.equalsIgnoreCase(listWithProperties[j].get(0))) {
                     // System.out.println(listWithProperties[j].get(1));
                     if (listWithProperties[j].get(1).equalsIgnoreCase("object") || listWithProperties[j].get(1).equalsIgnoreCase("array")) {
-                        classToClass.add(theSuper);
-                        classToClass.add(theSub);
+                        tmpObjectProperty.add(theSuper);
+                        tmpObjectProperty.add(theSub);
                     } else {
-                        classToProperty.add(theSuper);
-                        classToProperty.add(theSub);
-                        classToProperty.add(listWithProperties[j].get(1));
+                        tmpDatatypeProperty.add(theSuper);
+                        tmpDatatypeProperty.add(theSub);
+                        tmpDatatypeProperty.add(listWithProperties[j].get(1));
                     }
                 }
             }
@@ -185,11 +195,11 @@ public class BuildFile {
         }
 
         System.out.println("");
-        System.out.println("tmp class to class");
-        System.out.println(classToClass.toString());
+        System.out.println("tmp Object Property");
+        System.out.println(tmpObjectProperty.toString());
         System.out.println("");
-        System.out.println("tmp class to property");
-        System.out.println(classToProperty.toString());
+        System.out.println("tmp Datatype Property");
+        System.out.println(tmpDatatypeProperty.toString());
 
         System.out.println("");
         System.out.println("");
@@ -198,7 +208,7 @@ public class BuildFile {
         
 //final list=================================================================================================================
         
-        System.out.println("--------------------------------------------------------------------data siap pakai----------------------------------------------------------------");
+        System.out.println("-------------------------------------------data siap pakai----------------------------------------------------");
         System.out.println("");
         //list class-------------------------------------------------------------------------------------------------------------
         ArrayList<String> buildListClass = new ArrayList();
@@ -218,27 +228,27 @@ public class BuildFile {
         
         
         //list class to class----------------------------------------------------------------------------------------------------
-        int sizeListCtoC = classToClass.size() / 2;
-        ArrayList<String>[] buildListClassToClass = new ArrayList[sizeListCtoC];
+        int sizeListCtoC = tmpObjectProperty.size() / 2;
+        ArrayList<String>[] buildListObjectProperty = new ArrayList[sizeListCtoC];
         for (int i = 0; i < sizeListCtoC; i++) {
-            buildListClassToClass[i] = new ArrayList<>();
+            buildListObjectProperty[i] = new ArrayList<>();
         }
 
         int pointer = 0;
-        for (int i = classToClass.size() - 1; i >= 0; i = i - 2) {
-            //System.out.println(classToClass.get(i)+", "+classToClass.get(i+1));
-            String superClass = classToClass.get(i - 1);
-            String subClass = classToClass.get(i);
-            buildListClassToClass[pointer].add(superClass);
-            buildListClassToClass[pointer].add("punya" + subClass);
-            buildListClassToClass[pointer].add(subClass);
+        for (int i = tmpObjectProperty.size() - 1; i >= 0; i = i - 2) {
+            //System.out.println(tmpObjectProperty.get(i)+", "+tmpObjectProperty.get(i+1));
+            String superClass = tmpObjectProperty.get(i - 1);
+            String subClass = tmpObjectProperty.get(i);
+            buildListObjectProperty[pointer].add(superClass);
+            buildListObjectProperty[pointer].add("punya" + subClass);
+            buildListObjectProperty[pointer].add(subClass);
             pointer++;
         }
 
         //final Class to class
-        System.out.println("- SupertClass punya SubClass: ");
-        for (int i = 0; i < buildListClassToClass.length; i++) {
-            System.out.println("    " + buildListClassToClass[i].toString());
+        System.out.println("- Object Property: ");
+        for (int i = 0; i < buildListObjectProperty.length; i++) {
+            System.out.println("    " + buildListObjectProperty[i].toString());
         }
         //-----------------------------------------------------------------------------------------------------------------------        
 
@@ -246,25 +256,25 @@ public class BuildFile {
         
         
         //list class to property-------------------------------------------------------------------------------------------------
-        int sizeListCtoP = classToProperty.size() / 3;
-        ArrayList<String>[] buildListClassToProperty = new ArrayList[sizeListCtoP];
+        int sizeListCtoP = tmpDatatypeProperty.size() / 3;
+        ArrayList<String>[] buildListDataTypeProperty = new ArrayList[sizeListCtoP];
         for (int i = 0; i < sizeListCtoP; i++) {
-            buildListClassToProperty[i] = new ArrayList<>();
+            buildListDataTypeProperty[i] = new ArrayList<>();
         }
 
         int pointer1 = 0;
-        for (int i = classToProperty.size() - 1; i >= 0; i = i - 3) {
-            String superClass = classToProperty.get(i - 2);
-            String propertyClass = classToProperty.get(i - 1);
-            String dataType = classToProperty.get(i);
+        for (int i = tmpDatatypeProperty.size() - 1; i >= 0; i = i - 3) {
+            String superClass = tmpDatatypeProperty.get(i - 2);
+            String propertyClass = tmpDatatypeProperty.get(i - 1);
+            String dataType = tmpDatatypeProperty.get(i);
             if (dataType.equalsIgnoreCase("number")) {
-                buildListClassToProperty[pointer1].add(superClass);
-                buildListClassToProperty[pointer1].add(propertyClass);
-                buildListClassToProperty[pointer1].add("xsd:integer");
+                buildListDataTypeProperty[pointer1].add(superClass);
+                buildListDataTypeProperty[pointer1].add(propertyClass);
+                buildListDataTypeProperty[pointer1].add("xsd:integer");
             } else {
-                buildListClassToProperty[pointer1].add(superClass);
-                buildListClassToProperty[pointer1].add(propertyClass);
-                buildListClassToProperty[pointer1].add("xsd:" + dataType);
+                buildListDataTypeProperty[pointer1].add(superClass);
+                buildListDataTypeProperty[pointer1].add(propertyClass);
+                buildListDataTypeProperty[pointer1].add("xsd:" + dataType);
             }
             pointer1++;
 
@@ -273,9 +283,9 @@ public class BuildFile {
         System.out.println("");
 
         //final class to Property
-        System.out.println("- Class to Property: ");
-        for (int i = 0; i < buildListClassToProperty.length; i++) {
-            System.out.println("    " + buildListClassToProperty[i].toString());
+        System.out.println("- DataType Property: ");
+        for (int i = 0; i < buildListDataTypeProperty.length; i++) {
+            System.out.println("    " + buildListDataTypeProperty[i].toString());
         }
         //-----------------------------------------------------------------------------------------------------------------------
 
@@ -286,26 +296,26 @@ public class BuildFile {
         
 
         //list Path property-----------------------------------------------------------------------------------------------------
-        int sizeTmpListPathProperty = buildListClassToProperty.length;
+        int sizeTmpListPathProperty = buildListDataTypeProperty.length;
         ArrayList<String>[] tmpListPathProperty = new ArrayList[sizeTmpListPathProperty];
         for (int i = 0; i < sizeTmpListPathProperty; i++) {
             tmpListPathProperty[i] = new ArrayList<>();
         }
         
-        for (int i = 0; i < buildListClassToProperty.length; i++) {
-            String propertyName = buildListClassToProperty[i].get(1);
-            String parrent = buildListClassToProperty[i].get(0);
+        for (int i = 0; i < buildListDataTypeProperty.length; i++) {
+            String propertyName = buildListDataTypeProperty[i].get(1);
+            String parrent = buildListDataTypeProperty[i].get(0);
             tmpListPathProperty[i].add(propertyName);
-            for (int j = buildListClassToClass.length - 1; j >= 0; j--) {
-                if (parrent.equalsIgnoreCase(buildListClassToClass[j].get(2))) {
-                    tmpListPathProperty[i].add(buildListClassToClass[j].get(2));
+            for (int j = buildListObjectProperty.length - 1; j >= 0; j--) {
+                if (parrent.equalsIgnoreCase(buildListObjectProperty[j].get(2))) {
+                    tmpListPathProperty[i].add(buildListObjectProperty[j].get(2));
                     for (int k = j; k >= 0; k--) {
                         if (k > 0) {
-                            if (!buildListClassToClass[k - 1].get(2).equalsIgnoreCase(buildListClassToClass[k].get(0))) {
-                                tmpListPathProperty[i].add(buildListClassToClass[k].get(0));
+                            if (!buildListObjectProperty[k - 1].get(2).equalsIgnoreCase(buildListObjectProperty[k].get(0))) {
+                                tmpListPathProperty[i].add(buildListObjectProperty[k].get(0));
                                 break;
                             }
-                            tmpListPathProperty[i].add(buildListClassToClass[k - 1].get(2));
+                            tmpListPathProperty[i].add(buildListObjectProperty[k - 1].get(2));
                         }
 
                     }
@@ -321,12 +331,12 @@ public class BuildFile {
             }
         }
 
-//        System.out.println("tmp path property: ");
-//        for (int i = 0; i < tmpListPathProperty.length; i++) {
-//            System.out.println("    " + tmpListPathProperty[i].toString());
-//        }
+        System.out.println("tmp path property: ");
+        for (int i = 0; i < tmpListPathProperty.length; i++) {
+            System.out.println("    " + tmpListPathProperty[i].toString());
+        }
 
-        int sizeListPathProperty = buildListClassToProperty.length;
+        int sizeListPathProperty = buildListDataTypeProperty.length;
         ArrayList<String>[] listPathProperty = new ArrayList[sizeListPathProperty];
         for (int i = 0; i < sizeListPathProperty; i++) {
             listPathProperty[i] = new ArrayList<>();
@@ -395,19 +405,19 @@ public class BuildFile {
         ArrayList<String> tmpIndividual = new ArrayList<>();
         
         int counter;
-        for (int i = 0; i < buildListClassToProperty.length; i++) {
-            String clasIndividual = buildListClassToProperty[i].get(0);
-            for (int j = i; j < buildListClassToProperty.length; j++) {
-                if ((j<buildListClassToProperty.length-1) && !buildListClassToProperty[j].get(0).equalsIgnoreCase(buildListClassToProperty[j+1].get(0))) {
-                    //System.out.println("statemen: "+buildListClassToProperty[i].get(0) +" : "+ buildListClassToProperty[i].get(1));
-                    tmpIndividual.add(buildListClassToProperty[i].get(1));
-                    tmpIndividual.add(buildListClassToProperty[i].get(0));
+        for (int i = 0; i < buildListDataTypeProperty.length; i++) {
+            String clasIndividual = buildListDataTypeProperty[i].get(0);
+            for (int j = i; j < buildListDataTypeProperty.length; j++) {
+                if ((j<buildListDataTypeProperty.length-1) && !buildListDataTypeProperty[j].get(0).equalsIgnoreCase(buildListDataTypeProperty[j+1].get(0))) {
+                    //System.out.println("statemen: "+buildListDataTypeProperty[i].get(0) +" : "+ buildListDataTypeProperty[i].get(1));
+                    tmpIndividual.add(buildListDataTypeProperty[i].get(1));
+                    tmpIndividual.add(buildListDataTypeProperty[i].get(0));
                     i=j;
                     break;
-                }else if(j==buildListClassToProperty.length-1){
-                    //System.out.println("statemen: " + buildListClassToProperty[i].get(1) +" : "+ buildListClassToProperty[i].get(1));
-                    tmpIndividual.add(buildListClassToProperty[i].get(1));
-                    tmpIndividual.add(buildListClassToProperty[i].get(0));
+                }else if(j==buildListDataTypeProperty.length-1){
+                    //System.out.println("statemen: " + buildListDataTypeProperty[i].get(1) +" : "+ buildListDataTypeProperty[i].get(1));
+                    tmpIndividual.add(buildListDataTypeProperty[i].get(1));
+                    tmpIndividual.add(buildListDataTypeProperty[i].get(0));
                     i = j;
                     break;
                 }
@@ -417,27 +427,47 @@ public class BuildFile {
         }
         
 //        System.out.println(String.valueOf(valueProperty[0].get(0)));
-        
-        ArrayList<String>[] buildListIndividual = new ArrayList[tmpIndividual.size()/2];
+        int sizeListIndividual=tmpIndividual.size()/2*(valueProperty[1].size()-1);
+        System.out.println("size: "+sizeListIndividual);
+        ArrayList<String>[] buildListIndividual = new ArrayList[sizeListIndividual];
         for (int i = 0; i < buildListIndividual.length; i++) {
             buildListIndividual[i] = new ArrayList<>();
         }
         
         int pointerListIndividu=0;
+//        for (int i = 0; i < valueProperty.length; i++) {
+//            for (int j = 0; j < tmpIndividual.size()-1; j=j+2) {
+//                if(tmpIndividual.get(j).equalsIgnoreCase(valueProperty[i].get(valueProperty[i].size()-1))){
+//                    //System.out.println(valueProperty[i].get(valueProperty[i].size()-1));
+////                    String namaList =valueProperty[i].get(0);
+//                    //System.out.println(tmpIndividual.get(j+1));
+//                    //System.out.println(i);
+//                   String listName = String.valueOf(valueProperty[i].get(0));
+//                   buildListIndividual[pointerListIndividu].add(listName);
+//                   buildListIndividual[pointerListIndividu].add(tmpIndividual.get(j + 1));
+//                   pointerListIndividu++;
+//                }
+//            }
+//        }
+        
         for (int i = 0; i < valueProperty.length; i++) {
-            for (int j = 0; j < tmpIndividual.size()-1; j=j+2) {
-                if(tmpIndividual.get(j).equalsIgnoreCase(valueProperty[i].get(valueProperty[i].size()-1))){
+            for (int j = 0; j < tmpIndividual.size() - 1; j = j + 2) {
+                if (tmpIndividual.get(j).equalsIgnoreCase(valueProperty[i].get(valueProperty[i].size() - 1))) {
                     //System.out.println(valueProperty[i].get(valueProperty[i].size()-1));
 //                    String namaList =valueProperty[i].get(0);
                     //System.out.println(tmpIndividual.get(j+1));
                     //System.out.println(i);
-                   String listName = String.valueOf(valueProperty[i].get(0));
-                   buildListIndividual[pointerListIndividu].add(listName);
-                   buildListIndividual[pointerListIndividu].add(tmpIndividual.get(j + 1));
-                   pointerListIndividu++;
+                    for (int k = 0; k < valueProperty[1].size()-1; k++) {
+                        String listName = String.valueOf(valueProperty[i].get(k));
+                        buildListIndividual[pointerListIndividu].add(listName);
+                        buildListIndividual[pointerListIndividu].add(tmpIndividual.get(j + 1));
+                        pointerListIndividu++;
+                    }
+                    
                 }
             }
         }
+        
         
         System.out.println("- List Individu name");
         for (int i = 0; i < buildListIndividual.length; i++) {
@@ -450,52 +480,90 @@ public class BuildFile {
         
         
         //list Statement
-        int sizeListStatement = valueProperty.length*(valueProperty[0].size()-1);
-        //System.out.println(sizeListStatement);
-        ArrayList<String>[] buildListStatement= new ArrayList[sizeListStatement];
-        for (int i = 0; i < buildListStatement.length; i++) {
-            buildListStatement[i] = new ArrayList<>();
+        int sizeListStatementDP = valueProperty.length*((valueProperty[0].size()-1));
+        System.out.println(sizeListStatementDP);
+        ArrayList<String>[] buildListStatementDP= new ArrayList[sizeListStatementDP];
+        for (int i = 0; i < buildListStatementDP.length; i++) {
+            buildListStatementDP[i] = new ArrayList<>();
         }
         
         
         
         int pointerListStatement=0;
         for (int i = 0; i < buildListIndividual.length; i++) {
-            String listName = buildListIndividual[i].get(0);
-            String classOrigin = buildListIndividual[i].get(1);
-            for (int j = 0; j <buildListClassToProperty.length ; j++) {
-                String classOrigin1 = buildListClassToProperty[j].get(0);
-                String propertyClass = buildListClassToProperty[j].get(1);
-                if(classOrigin.equalsIgnoreCase(classOrigin1)){
+            String individuName = buildListIndividual[i].get(0);
+            String className = buildListIndividual[i].get(1);
+//            System.out.println(individuName);
+            for (int j = 0; j < buildListDataTypeProperty.length; j++) {
+                String classNameFromProperty = buildListDataTypeProperty[j].get(0);
+                if(className.equalsIgnoreCase(classNameFromProperty)){
+                    String propertyFromClassToProperty = buildListDataTypeProperty[j].get(1);
+                    int pointerLiteral=0;
                     for (int k = 0; k < valueProperty.length; k++) {
-                        String propertyClassOnValue = valueProperty[k].get(valueProperty[k].size()-1);
-                        if(propertyClass.equalsIgnoreCase(propertyClassOnValue)){
-                            for (int l = 0; l < valueProperty[k].size()-1; l++) {
-//                                System.out.println(pointerListStatement);
-//                                System.out.println(listName);
-                                buildListStatement[pointerListStatement].add(listName);
-                                buildListStatement[pointerListStatement].add("punya"+propertyClass);
-                                buildListStatement[pointerListStatement].add(String.valueOf(valueProperty[k].get(l)));
+//                        System.out.println(pointerLiteral);
+                        String propertyFromValue = valueProperty[k].get(valueProperty[k].size()-1);
+                        //for (int l = 0; l < valueProperty[k].size()-1; l++) {
+                            for (int l = 0; l < valueProperty[k].size(); l++) {
+                                if(individuName.equalsIgnoreCase(String.valueOf(valueProperty[k].get(l)))){
+                                    pointerLiteral = l;
+                                }
+                            }
+                         
+                            if (propertyFromClassToProperty.equalsIgnoreCase(propertyFromValue)) {
+                                buildListStatementDP[pointerListStatement].add(individuName);
+                                buildListStatementDP[pointerListStatement].add("punya" + propertyFromValue);
+                                buildListStatementDP[pointerListStatement].add(String.valueOf(valueProperty[k].get(pointerLiteral)));
+                                //System.out.println(individuName + ", " + "punya"+propertyFromValue + ", " + String.valueOf(valueProperty[k].get(pointerLiteral))); 
                                 pointerListStatement++;
                             }
-                        }
+                           
+                        //}
                     }
                 }
             }
+            
         }
         
-        
         System.out.println("- List Statemen: ");
-        for (int i = 0; i < buildListStatement.length; i++) {
-            System.out.println("    "+buildListStatement[i].toString());
+        for (int i = 0; i < buildListStatementDP.length; i++) {
+            System.out.println("    "+buildListStatementDP[i].toString());
         }
         
         //-----------------------------------------------------------------------------------------------------------------------
 
+        System.out.println("");
+        
+        //list Statement Object Property
+        
+//        System.out.println(sizeListStatement);
+        ArrayList<String>[] buildListStatementOP= new ArrayList[buildListIndividual.length - (valueProperty[0].size()-1)];
+        for (int i = 0; i < buildListStatementOP.length; i++) {
+            buildListStatementOP[i] = new ArrayList<>();
+        }
+        
+        int pointerListStatementOP = valueProperty[0].size()-1;
+        for (int i = 0; i < buildListStatementOP.length; i++) {
+            String namaIndividu = buildListIndividual[i].get(0);
+            String namaKelas = buildListIndividual[pointerListStatementOP].get(1);
+            String literal = buildListIndividual[pointerListStatementOP].get(0);
+            buildListStatementOP[i].add(namaIndividu);
+            buildListStatementOP[i].add("punya"+namaKelas);
+            buildListStatementOP[i].add(literal);
+            pointerListStatementOP++;
+        }
+        
+        System.out.println("List Statement Object property: ");
+        for (int i = 0; i < buildListStatementOP.length; i++) {
+            System.out.println("    "+buildListStatementOP[i].toString());
+        }
+        
+        
+        //-----------------------------------------------------------------------------------------------------------------------
+        
         //Input list fo OWL ontology
         
         BuildOntology CreateOntoogy = new BuildOntology();
-        CreateOntoogy.BuildOWLOntology(buildListClass, buildListClassToClass, buildListClassToProperty, buildListIndividual, buildListStatement);
+        CreateOntoogy.BuildOWLOntology(buildListClass, buildListObjectProperty, buildListDataTypeProperty, buildListIndividual, buildListStatementDP, buildListStatementOP);
         
         //-----------------------------------------------------------------------------------------------------------------------
     }

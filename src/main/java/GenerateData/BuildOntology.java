@@ -9,13 +9,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.ontology.DatatypeProperty;
+import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.util.PrintUtil;
@@ -28,7 +32,7 @@ import org.apache.jena.vocabulary.XSD;
 
 public class BuildOntology {
     
-    public void BuildOWLOntology(ArrayList<String> listClass, ArrayList<String>[] listObjectProperty, ArrayList<String>[] listDataTypeProperty, ArrayList<String>[] listIndividu, ArrayList<String>[] listStatement) throws FileNotFoundException {
+    public void BuildOWLOntology(ArrayList<String> listClass, ArrayList<String>[] listObjectProperty, ArrayList<String>[] listDataTypeProperty, ArrayList<String>[] listIndividu, ArrayList<String>[] listStatementDataTypeProperty, ArrayList<String>[] listStatementObjectProperty) throws FileNotFoundException {
 
 //        org.apache.log4j.Logger.getRootLogger().setLevel(org.apache.log4j.Level.OFF);
 
@@ -53,7 +57,7 @@ public class BuildOntology {
 
         //Create Data type property
         for (int i = 0; i < listDataTypeProperty.length; i++) {
-            DatatypeProperty dt = mo.createDatatypeProperty(mergeURI + listDataTypeProperty[i].get(1));
+            DatatypeProperty dt = mo.createDatatypeProperty(mergeURI+ "punya" + listDataTypeProperty[i].get(1));
             dt.addDomain(mo.getResource(mergeURI + listDataTypeProperty[i].get(0)));
             if(listDataTypeProperty[i].get(2).equalsIgnoreCase("xsd:string")){
                 dt.addRange(XSD.xstring);
@@ -64,21 +68,34 @@ public class BuildOntology {
             }
             
         }
-
-        //Create individu
+//
+//        //Create individu
         for (int i = 0; i < listIndividu.length; i++) {
             OntClass newclass = mo.getOntClass(mergeURI + listIndividu[i].get(1));
             mo.createIndividual(mergeURI + listIndividu[i].get(0), newclass);
         }
 
-        //Create Statement
-        for (int i = 0; i < listStatement.length; i++) {
+//        //Create Statement Data Type Property
+        for (int i = 0; i < listStatementDataTypeProperty.length; i++) {
             //System.out.println(listStatement[i].get(1));
-            Resource ex = mo.getResource(mergeURI + listStatement[i].get(0));
-            Property ex1 = mo.getProperty(mergeURI + listStatement[i].get(1));
-            Statement news = mo.createStatement(ex, ex1, listStatement[i].get(2));
+            Literal r = mo.createLiteral(mergeURI + listStatementDataTypeProperty[i].get(2));
+            Individual ex = mo.getIndividual(mergeURI + listStatementDataTypeProperty[i].get(0));
+            Property ex1 = mo.getProperty(mergeURI + listStatementDataTypeProperty[i].get(1));
+            Statement news = mo.createStatement(ex, ex1, r);
+            //System.out.println(news);
             mo.add(news);
         }
+//                
+        //Create Statement Data Type Property
+        for (int i = 0; i < listStatementObjectProperty.length; i++) {
+            Resource o = mo.createResource(mergeURI+listStatementObjectProperty[i].get(2));
+            Resource ex = mo.getResource(mergeURI + listStatementObjectProperty[i].get(0));
+            Property ex1 = mo.getProperty(mergeURI + listStatementObjectProperty[i].get(1));
+            Statement news = mo.createStatement(ex, ex1, o);
+            //System.out.println(news);
+            mo.add(news);
+        }
+        
         String basePath = new File("").getAbsolutePath();
         String finalPath = basePath.replace("\\", "\\\\");
         String fileName = "OntologyFromJsonFile.owl";

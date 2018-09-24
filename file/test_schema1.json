@@ -3,152 +3,63 @@
   "description": "",
   "type": "object",
   "properties": {
-    "data": {
+    "store": {
       "type": "object",
       "properties": {
-        "response": {
-          "type": "object",
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "list": {
-              "type": "object",
-              "properties": {
-                "kdDiag": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "nmDiag": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "nonSpesialis": {
-                  "type": "boolean"
-                }
+        "book": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "publisher"
+            ],
+            "properties": {
+              "publisher": {
+                "type": "string",
+                "minLength": 1
               },
-              "required": [
-                "kdDiag",
-                "nmDiag",
-                "nonSpesialis"
-              ]
-            },
-            "list1": {
-              "type": "object",
-              "properties": {
-                "anak1List1": {
-                  "type": "object",
-                  "properties": {},
-                  "required": []
-                },
-                "anak2List1": {
-                  "type": "object",
-                  "properties": {},
-                  "required": []
-                }
-              },
-              "required": [
-                "anak1List1",
-                "anak2List1"
-              ]
-            },
-            "list2": {
-              "type": "object",
-              "properties": {
-                "anak1List2": {
-                  "type": "object",
-                  "properties": {},
-                  "required": []
-                }
-              },
-              "required": [
-                "anak1List2"
-              ]
-            }
-          },
-          "required": [
-            "count",
-            "list",
-            "list1",
-            "list2"
-          ]
-        },
-        "metaData": {
-          "type": "object",
-          "properties": {
-            "message": {
-              "type": "string",
-              "minLength": 1
-            },
-            "code": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "message",
-            "code"
-          ]
-        },
-        "kesehatan": {
-          "type": "object",
-          "properties": {
-            "penyakit": {
-              "type": "object",
-              "properties": {
-                "namaP": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "obat": {
-                  "type": "object",
-                  "properties": {
-                    "namaO": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "kandungan": {
-                      "type": "object",
-                      "properties": {
-                        "tumbuhan": {
-                          "type": "string",
-                          "minLength": 1
-                        },
-                        "senyawa": {
-                          "type": "string",
-                          "minLength": 1
-                        }
-                      },
-                      "required": [
-                        "tumbuhan",
-                        "senyawa"
-                      ]
-                    }
+              "information": {
+                "type": "object",
+                "properties": {
+                  "category": {
+                    "type": "string",
+                    "minLength": 1
                   },
-                  "required": [
-                    "namaO",
-                    "kandungan"
-                  ]
-                }
-              },
-              "required": [
-                "namaP",
-                "obat"
-              ]
+                  "author": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "title": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "isbn": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "price": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "category",
+                  "author",
+                  "title",
+                  "isbn",
+                  "price"
+                ]
+              }
             }
-          },
-          "required": [
-            "penyakit"
-          ]
+          }
         }
       },
       "required": [
-        "response",
-        "metaData",
-        "kesehatan"
+        "book"
       ]
     }
   },
   "required": [
-    "data"
+    "store"
   ]
 }

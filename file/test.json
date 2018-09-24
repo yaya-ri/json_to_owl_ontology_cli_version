@@ -2,10 +2,10 @@
   "kesehatan": {
     "penyakit": [
       {
+        "idP": 101,
         "namaP": "Malaria",
-        "id": 101,
         "obat": {
-          "namaO": "obatMalaria1",
+          "namaO": "obatMalaria",
           "kandungan": {
             "tumbuhan": "jahe",
             "senyawa": "Hcl"
@@ -13,8 +13,8 @@
         }
       },
       {
+        "idP": 102,
         "namaP": "demam Berdarah",
-        "id": 102,
         "obat": {
           "namaO": "obatDemamBerdarah",
           "kandungan": {
@@ -24,19 +24,19 @@
         }
       },
       {
+        "idP": 103,
         "namaP": "Diare",
-        "id": 103,
         "obat": {
           "namaO": "obatDiare",
           "kandungan": {
-            "tumbuhan": "Daun Teh",
+            "tumbuhan": "DaunTeh",
             "senyawa": "Np2H"
           }
         }
       },
       {
+        "idP": 104,
         "namaP": "TBC",
-        "id": 104,
         "obat": {
           "namaO": "obatTBC",
           "kandungan": {
@@ -46,23 +46,23 @@
         }
       },
       {
+        "idP": 105,
         "namaP": "Tifus",
-        "id": 105,
         "obat": {
           "namaO": "obatTifus",
           "kandungan": {
-            "tumbuhan": "Daun Pepaya",
+            "tumbuhan": "DaunPepaya",
             "senyawa": "NaP4"
           }
         }
       },
       {
+        "idP": 106,
         "namaP": "Campak",
-        "id": 106,
         "obat": {
           "namaO": "obatCampak",
           "kandungan": {
-            "tumbuhan": "Daun Ubi Jalar",
+            "tumbuhan": "DaunUbiJalar",
             "senyawa": "k3P2"
           }
         }

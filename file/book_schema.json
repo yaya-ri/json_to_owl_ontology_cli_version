@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "store": {
+      "type": "object",
+      "properties": {
+        "book": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "required": [
+              "category",
+              "author",
+              "title",
+              "isbn",
+              "price"
+            ],
+            "properties": {
+              "category": {
+                "type": "string",
+                "minLength": 1
+              },
+              "author": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "isbn": {
+                "type": "string",
+                "minLength": 1
+              },
+              "price": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "book"
+      ]
+    }
+  },
+  "required": [
+    "store"
+  ]
+}

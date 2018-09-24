@@ -1,39 +1,46 @@
 {
-  "data":{
-    "response": {
-        "count": 33,
-        "list":{
-            "kdDiag": "A001",
-            "nmDiag": "Cholera due to vibrio cholerae 01 biovar eltor",
-            "nonSpesialis": false
-        },"list1":{
-            "anak1List1":{
-                
-            },"anak2List1":{
-                
+  "store": {
+    "book": [
+      {
+        "publisher": "Erlangga",
+        "information": {
+            "category": "fiction",
+            "author": "Tolkien",
+            "title": "The_Lord_of_the_Rings",
+            "isbn": "0-395-19395-1",
+            "price": 2000000
             }
-            
-        },"list2":{
-            "anak1List2":{
-                
+        },
+        {
+        "publisher": "Gagas_Media.",
+        "information": {
+            "category": "horror",
+            "author": "Pandu",
+            "title": "Rumah_darah",
+            "isbn": "0-395-19395-2",
+            "price": 1500000
+            }
+        },
+        {
+        "publisher": "Gramedia_Pustaka_Utama",
+        "information": {
+            "category": "education",
+            "author": "bagas",
+            "title": "Matematika_dasar",
+            "isbn": "0-395-19395-9",
+            "price": 70000
             }
         }
-    },
-    "metaData": {
-        "message": "OK",
-        "code": 200
-    },
-    "kesehatan":{
-        "penyakit":{
-          "namaP":"malaria",
-          "obat":{
-            "namaO":"obatMalaria",
-            "kandungan" :{
-              "tumbuhan":"jahe",
-              "senyawa":"a"
+        ,{
+        "publisher": "Elexmedia_Komputindo",
+        "information": {
+            "category": "education",
+            "author": "hendry",
+            "title": "GO_languange_basic",
+            "isbn": "0-395-19395-8",
+            "price": 95000
             }
-          }
         }
-    } 
+    ]
   }
 }
